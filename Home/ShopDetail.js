@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, SafeAreaView, Platform ,StatusBar} from "react-native";
 import ShopItem from "./ShopItem";
-export default function ShopDetail({ route }) {
+export default function ShopDetail({ route , navigation }) {
   return (
     <>
     <SafeAreaView
@@ -20,6 +20,6 @@ export default function ShopDetail({ route }) {
       </View>
       <View style={{borderWidth:0.4,marginTop:8}}/>
     </SafeAreaView>
-    <ShopItem product={route.params.data.product} shopId={route.params.data.shopId} shopName={route.params.data.name}/></>
+    <ShopItem product={route.params.data.product} shopId={route.params.data.shopId} shopName={route.params.data.name} navigation={navigation}/></>
   );
 }

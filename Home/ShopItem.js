@@ -31,12 +31,9 @@ export default function ShopItem(props) {
       dict[item.title] = 1;
     }
   });
-  React.useEffect(()=>{
-    const deleteItem = () => dispatch({
-      type:'DELETE_CART'
-    })
-    deleteItem()
-  },[])
+  console.log(dict)
+  const totalPrice = (useSelector((state) => state.selectedItems.items)).map((item) => Number(item.price.replace("Rs." , ""))).reduce((prev,curr) => prev + curr , 0)
+  console.log(totalPrice)
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -64,7 +61,9 @@ export default function ShopItem(props) {
         ))}
       </ScrollView>
       {/* VIEW CART BUTTON */}
-      <TouchableOpacity
+      {
+        totalPrice ? 
+        <TouchableOpacity
         style={{
           width: 250,
           height: 40,
@@ -74,9 +73,15 @@ export default function ShopItem(props) {
           bottom: 30,
           borderRadius: 30,
         }}
+        onPress={() =>props.navigation.navigate("SummaryTwo")}
       >
-        <Text style={{ color: "white", textAlign: "center" }}>View Cart</Text>
+        <View style={{justifyContent: "space-between",flexDirection: "row",paddingHorizontal:25}}>
+        <Text style={{ color: "white",paddingLeft:35}}>View Cart</Text>
+        <Text style={{ color: "white"}}>Rs.{totalPrice}</Text>
+        </View>
       </TouchableOpacity>
+      : null
+      }
     </>
   );
 }
